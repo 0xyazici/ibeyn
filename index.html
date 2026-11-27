@@ -4,260 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f3ee">
-    <meta
-        name="description"
-        content="BTC/USD kaynak ortalaması ve ons altın/USD fiyatı."
-    >
-
-    <title>BTC ve Ons Altın / USD</title>
+    <meta http-equiv="refresh" content="900">
+    <title>Piyasa Paneli</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap"
         rel="stylesheet"
     >
 
     <style>
-        :root {
-            color-scheme: light;
-            --inci: #f5f3ee;
-            --fiyat: #faf9f6;
-            --parite: #bdc3cc;
-            --tarih: rgba(54, 57, 63, 0.54);
-        }
+        * { box-sizing: border-box; }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            min-height: 100%;
-            background: var(--inci);
-        }
+        html { min-height: 100%; background: #f5f3ee; }
 
         body {
             margin: 0;
             min-height: 100vh;
-            min-height: 100svh;
-            display: grid;
-            place-items: center;
-            padding: 40px 16px;
-            overflow-x: hidden;
+            padding: 32px 14px 40px;
             font-family: Arial, Helvetica, sans-serif;
+            color: #faf9f6;
             background:
-                radial-gradient(
-                    ellipse at 24% 24%,
-                    rgba(255, 255, 255, 0.98),
-                    transparent 55%
-                ),
-                radial-gradient(
-                    ellipse at 78% 76%,
-                    rgba(190, 198, 209, 0.27),
-                    transparent 56%
-                ),
-                var(--inci);
+                radial-gradient(ellipse at 24% 18%,
+                    rgba(255, 255, 255, 0.98), transparent 55%),
+                radial-gradient(ellipse at 78% 80%,
+                    rgba(190, 198, 209, 0.27), transparent 56%),
+                #f5f3ee;
         }
 
         .panel {
-            width: min(820px, 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: min(760px, 100%);
+            margin: 0 auto;
+            display: grid;
+            gap: 18px;
         }
 
-        .cam-serit {
+        .kart {
             position: relative;
             isolation: isolate;
             overflow: hidden;
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: clamp(12px, 3vw, 32px);
-            min-width: 0;
-            white-space: nowrap;
+            padding: 20px clamp(16px, 4vw, 34px) 12px;
             border: 1px solid rgba(255, 255, 255, 0.62);
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(83, 89, 98, 0.87),
-                    rgba(40, 45, 53, 0.95)
-                );
+            border-radius: 22px;
+            background: linear-gradient(
+                135deg, rgba(83, 89, 98, 0.88), rgba(40, 45, 53, 0.95));
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             box-shadow:
-                0 20px 48px rgba(35, 40, 48, 0.13),
+                0 18px 44px rgba(35, 40, 48, 0.13),
                 0 5px 14px rgba(35, 40, 48, 0.06),
                 inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
-        .cam-serit::before {
+        .kart::before {
             content: "";
             position: absolute;
             z-index: -1;
             inset: 0;
             pointer-events: none;
-            background:
-                linear-gradient(
-                    115deg,
-                    rgba(255, 255, 255, 0.15),
-                    transparent 42%,
-                    rgba(255, 255, 255, 0.025) 70%,
-                    transparent
-                );
+            background: linear-gradient(
+                115deg, rgba(255, 255, 255, 0.14), transparent 42%,
+                rgba(255, 255, 255, 0.02) 70%, transparent);
         }
 
-        .btc {
-            width: 100%;
-            padding:
-                clamp(30px, 5vw, 48px)
-                clamp(18px, 4vw, 44px);
-            border-radius: 25px;
-        }
-
-        .ons {
-            width: 88%;
-            margin-top: 19px;
-            padding:
-                clamp(24px, 4vw, 35px)
-                clamp(16px, 3.5vw, 35px);
-            border-radius: 21px;
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(91, 97, 106, 0.84),
-                    rgba(48, 53, 61, 0.93)
-                );
-            box-shadow:
-                0 14px 35px rgba(35, 40, 48, 0.10),
-                inset 0 1px 0 rgba(255, 255, 255, 0.22);
-        }
-
-        .parite {
-            flex-shrink: 0;
+        h2 {
+            margin: 0 0 6px;
             font-family: "Orbitron", "Courier New", monospace;
+            font-size: clamp(10px, 1.9vw, 13px);
             font-weight: 500;
-            letter-spacing: 0.035em;
-            color: var(--parite);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #bdc3cc;
         }
 
-        .btc .parite {
-            font-size: clamp(11px, 2.1vw, 20px);
+        .satir {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) 84px;
+            align-items: baseline;
+            gap: 10px;
+            padding: 12px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
         }
 
-        .ons .parite {
-            font-size: clamp(10px, 1.8vw, 17px);
+        h2 + .satir { border-top: none; }
+
+        .ad {
+            font-family: "Orbitron", "Courier New", monospace;
+            font-size: clamp(11px, 2.4vw, 16px);
+            font-weight: 500;
+            color: #d7dbe1;
         }
 
-        .fiyat {
-            min-width: 0;
+        .deger {
             text-align: right;
             font-family: "Orbitron", "Courier New", monospace;
+            font-size: clamp(16px, 4.2vw, 30px);
             font-weight: 600;
             font-variant-numeric: tabular-nums;
-            letter-spacing: -0.025em;
-            line-height: 1.2;
-            color: var(--fiyat);
-            text-shadow: 0 1px 8px rgba(255, 255, 255, 0.08);
+            letter-spacing: -0.02em;
+            color: #faf9f6;
+            white-space: nowrap;
         }
 
-        .btc .fiyat {
-            font-size: clamp(25px, 6vw, 60px);
+        .degisim {
+            text-align: right;
+            font-family: "Orbitron", "Courier New", monospace;
+            font-size: clamp(10px, 2vw, 13px);
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
 
-        .ons .fiyat {
-            font-size: clamp(21px, 4.8vw, 46px);
-        }
+        .yukari { color: #8fe3b0; }
+        .asagi { color: #ff9f9f; }
+        .notr { color: #a9b0ba; }
 
         .tarih {
-            margin: 25px 0 0;
+            margin: 4px 0 0;
             text-align: center;
             font-family: "Orbitron", "Courier New", monospace;
             font-size: clamp(10px, 1.6vw, 12px);
             font-weight: 500;
             letter-spacing: 0.10em;
-            color: var(--tarih);
+            color: rgba(54, 57, 63, 0.56);
         }
 
-        .ayirici {
-            display: inline-block;
-            margin: 0 9px;
-            opacity: 0.65;
-        }
-
-        ::selection {
-            background: #d5d9df;
-            color: #252a32;
-        }
-
-        @media (max-width: 380px) {
-            body {
-                padding-right: 12px;
-                padding-left: 12px;
-            }
-
-            .btc {
-                gap: 10px;
-                padding: 28px 14px;
-                border-radius: 20px;
-            }
-
-            .ons {
-                width: 92%;
-                gap: 10px;
-                margin-top: 15px;
-                padding: 23px 13px;
-                border-radius: 18px;
-            }
-
-            .btc .parite {
-                font-size: 10px;
-            }
-
-            .ons .parite {
-                font-size: 9px;
-            }
-
-            .btc .fiyat {
-                font-size: 23px;
-            }
-
-            .ons .fiyat {
-                font-size: 20px;
-            }
+        @media (max-width: 400px) {
+            .satir { grid-template-columns: 1fr auto; row-gap: 2px; }
+            .degisim { grid-column: 2; }
         }
     </style>
 </head>
 
 <body>
-    <main class="panel" aria-label="Bitcoin ve ons altın dolar fiyatları">
-        <section
-            class="cam-serit btc"
-            aria-label="Üç kaynaktan hesaplanan Bitcoin dolar ortalaması"
-            title="Coinbase, Kraken ve Blockchain.com fiyatlarının ortalaması"
-        >
-            <span class="parite">BTC/USD</span>
-            <span class="fiyat">$61,674.50</span>
-        </section>
-
-        <section
-            class="cam-serit ons"
-            aria-label="Bir troy ons altının ABD doları fiyatı"
-            title="Kaynak: Gold API — USD / troy ons"
-        >
-            <span class="parite">ONS/USD</span>
-            <span class="fiyat">$3,649.00</span>
-        </section>
-
+    <main class="panel">
+        <section class="kart"><h2>Kripto ve Altın</h2><div class="satir" title="3/3 kaynak ortalaması"><span class="ad">BTC/USD</span><span class="deger">$61,654.99</span><span class="degisim notr"></span></div>
+<div class="satir" title="Gold API, USD / troy ons"><span class="ad">ONS/USD</span><span class="deger">$3,663.90</span><span class="degisim notr"></span></div></section>
+<section class="kart"><h2>Borsa İstanbul</h2><div class="satir" title="XU100.IS"><span class="ad">BIST 100</span><span class="deger">10,702.73</span><span class="degisim asagi">-0.38%</span></div>
+<div class="satir" title="XU030.IS"><span class="ad">BIST 30</span><span class="deger">13,398.46</span><span class="degisim asagi">-0.41%</span></div></section>
+<section class="kart"><h2>ABD Endeksleri</h2><div class="satir" title="^GSPC"><span class="ad">S&amp;P 500</span><span class="deger">7,182.78</span><span class="degisim asagi">-0.25%</span></div>
+<div class="satir" title="^DJI"><span class="ad">Dow Jones</span><span class="deger">50,182.95</span><span class="degisim yukari">+0.33%</span></div>
+<div class="satir" title="^IXIC"><span class="ad">Nasdaq</span><span class="deger">23,585.80</span><span class="degisim asagi">-0.62%</span></div></section>
+<section class="kart"><h2>İngiltere ve Rusya</h2><div class="satir" title="^FTSE"><span class="ad">FTSE 100</span><span class="deger">10,609.30</span><span class="degisim yukari">+1.75%</span></div>
+<div class="satir" title=""><span class="ad">MOEX Rusya</span><span class="deger">—</span><span class="degisim notr"></span></div></section>
+<section class="kart"><h2>ABD Tahvil Faizi</h2><div class="satir" title=""><span class="ad">ABD 5 Yıllık Tahvil</span><span class="deger">—</span><span class="degisim notr"></span></div>
+<div class="satir" title=""><span class="ad">ABD 10 Yıllık Tahvil</span><span class="deger">—</span><span class="degisim notr"></span></div></section>
         <p class="tarih">
-            <time
-                datetime="2026-11-27T10:04:57+03:00"
-                title="Verilerin alınma zamanı — Türkiye saati (UTC+3)"
-            >27.11.2026<span class="ayirici">·</span>10:04</time>
+            <time datetime="2026-11-27T10:56:46+03:00">27.11.2026 · 10:56</time>
         </p>
     </main>
 </body>
